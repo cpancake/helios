@@ -10,7 +10,7 @@ objects: $(OBJS)
 %.o: %.asm
 	nasm -felf $< -o $@
 
-%.o: %.c
+%.o: %.c %.cpp %.cc
 	i386-elf-g++ -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -c $<
 
 kernel: 
@@ -21,4 +21,4 @@ clean:
 	rm -rf ../disk/files/boot/kernel.bin
 
 iso:
-	mkisofs -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 --boot-info-table -V HELIOS -quiet -o ../disk/helios.iso ../disk/files
+	mkisofs -R -b boot/grub/stage2_eltorito -no-emul-boot -boot-load-size 4 -boot-info-table -V HELIOS -quiet -o ../disk/helios.iso ../disk/files
