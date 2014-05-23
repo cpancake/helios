@@ -1,0 +1,4 @@
+default 0
+
+title Helios
+kernel /boot/kernel.bin
