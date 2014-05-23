@@ -1,5 +1,7 @@
 OBJS=main.o boot.o
 OUT=kernel.bin
+CC=i386-elf-g++
+LD=i386-elf-ld
 
 all: objects kernel
 	rm -rf *.o
@@ -10,11 +12,11 @@ objects: $(OBJS)
 %.o: %.asm
 	nasm -felf $< -o $@
 
-%.o: %.c %.cpp %.cc
-	i386-elf-g++ -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -c $<
+%.o: %.c
+	$(CC) -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -c $<
 
 kernel: 
-	i386-elf-ld -T link.ld -o kernel.bin $(OBJS)
+	$(LD) -T link.ld -o kernel.bin $(OBJS)
 
 clean: 
 	rm -rf $(OBJS)
