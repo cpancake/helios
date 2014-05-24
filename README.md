@@ -5,6 +5,7 @@ Example OS to accompany the tutorials I'm writing.
 ## Tutorials
 1. [Cross-Compiling GCC](http://cpancake.github.io/osdev-gcc.html)
 2. [Environment Setup](http://cpancake.github.io/osdev-environment.html)
+3. [Writing to the Screen](http://cpancake.github.io/osdev-screen.html)
 
 ## License
 ```
