@@ -1,23 +1,30 @@
-OBJS=main.o boot.o
+OBJS=util.o screen.o main.o boot.o
+LIBS=libhstd.a
+CC=i386-elf-g++
+LD=i386-elf-ld
 OUT=kernel.bin
 
-all: objects kernel
+all: objects libs kernel
 	rm -rf *.o
 	mv kernel.bin ../disk/files/boot
 
 objects: $(OBJS)
 
+libs:
+	cd lib/hstd && make && mv libhstd.a ../../
+
 %.o: %.asm
 	nasm -felf $< -o $@
 
-%.o: %.c %.cpp %.cc
-	i386-elf-g++ -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti -c $<
+%.o: %.c
+	$(CC) -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fpermissive -fno-rtti -c $<
 
 kernel: 
-	i386-elf-ld -T link.ld -o kernel.bin $(OBJS)
+	$(LD) -T link.ld -o kernel.bin $(OBJS) $(LIBS)
 
 clean: 
 	rm -rf $(OBJS)
+	rm -rf $(LIBS)
 	rm -rf ../disk/files/boot/kernel.bin
 
 iso:
