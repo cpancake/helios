@@ -3,6 +3,8 @@ LIBS=libhstd.a
 CC=i386-elf-g++
 LD=i386-elf-ld
 OUT=kernel.bin
+CC=i386-elf-g++
+LD=i386-elf-ld
 
 all: objects libs kernel
 	rm -rf *.o
